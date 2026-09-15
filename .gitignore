@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 実行時の出力（各自の口座の数字なので共有しない）
+#
+# 🔴 先頭を src/ に固定すること。先頭スラッシュの無いパターンは全階層に
+#    マッチするので、examples/ の同名ファイルまで黙って消える。
+#    2026-09-15 に実際に踏んだ（examples/diag_gross.json が初回コミットから欠落）。
+src/results.json
+src/results_engine.json
+src/diag_gross.json
+src/dryrun_results.json
+src/*.log
+
+# 🔴 認証情報は絶対に入れない
+config.py
+.env
+credentials*

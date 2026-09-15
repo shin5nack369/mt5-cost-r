@@ -1,0 +1,20 @@
+# 改行コードをリポジトリ側で LF に正規化する。
+#
+# 🔴 これが無いと、Windows でチェックアウトした瞬間に全ファイルが
+#    「変更あり」に見える。実際には1文字も変わっていない。
+#    (2026-09-15: 初回コミット直後に examples/*.json が 1,785 行
+#     insertions / 1,785 deletions で差分表示された。--ignore-all-space
+#     で消えることを確認済み＝改行コードだけの差だった)
+#
+#    毎日それを見ていると、本当の差分が埋もれる。
+
+* text=auto
+
+*.py   text
+*.md   text
+*.json text
+*.txt  text
+
+*.png  binary
+*.jpg  binary
+*.woff2 binary
