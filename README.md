@@ -57,8 +57,13 @@ src/signal_ma_cross.py   A worked example: MA cross, 36 tests. Imports the engin
 src/dryrun_wiring.py     Runs main() end to end against a stubbed MT5. See below.
 src/diag_gross.py        Re-runs with cost set to zero, to answer "did the spread
                          kill it, or was there never an edge?"
+src/gate_power.py        How often a "first N trades, PF >= 1" gate passes a real edge
+                         versus pure noise. Measured: ~6 in 10 vs ~5 in 10.
+src/prereg_lock.py       Hash the pre-declaration with sha256 and refuse silent edits.
+                         lock / check / amend. Tests in src/test_prereg_lock.py.
 templates/pre_declaration.md   Fill in and commit BEFORE running anything.
 examples/                Real output from the MA-cross study (36 tests, 0 passed).
+docs/                    One landing page per article, so clicks can be told apart.
 ```
 
 ## Quick start
@@ -73,6 +78,7 @@ python signal_ma_cross.py --selftest   # 7 engine checks, no MT5 required
 python dryrun_wiring.py                # main() end to end against a stub MT5
 python signal_ma_cross.py              # the real 36 tests
 python diag_gross.py                   # cost-free counterfactual
+python -m unittest test_prereg_lock    # 4 checks on the pre-declaration lock
 ```
 
 ---
