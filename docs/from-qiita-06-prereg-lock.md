@@ -4,6 +4,8 @@ Qiita の記事「結果を見てから線を動かさない — 事前宣言を
 
 ## このページにあるもの
 
+- 本体（約60行・標準ライブラリだけ）: [`src/prereg_lock.py`](../src/prereg_lock.py)
+- テスト（4件）: [`src/test_prereg_lock.py`](../src/test_prereg_lock.py)
 - 事前宣言のテンプレート: [`templates/pre_declaration.md`](../templates/pre_declaration.md)
 - 判定を回すエンジン: [`src/backtest_engine.py`](../src/backtest_engine.py)
 
@@ -22,7 +24,22 @@ Qiita の記事「結果を見てから線を動かさない — 事前宣言を
 
 A/B テストでも機械学習の実験でもバックテストでも、同じ形で効きます。
 
-固定する約60行とそのテストは記事の末尾にそのまま置いてあります。リポジトリへの追加は未了です。
+## 使い方
+
+```bash
+python src/prereg_lock.py lock  plan.md analysis.py   # 鍵をかける（lock.json ができる）
+python src/prereg_lock.py check                       # 鍵をかけた後に変わっていないか
+python src/prereg_lock.py amend "理由" analysis.py    # 変えるなら理由つきで追記（上書きはしない）
+```
+
+`lock` は2回目を拒否します。黙って線を緩めると `check` が `変わっている: analysis.py` と言います。
+`amend` を使えば最初の指紋は残り、何をいつどんな理由で変えたかが `lock.json` に積まれます。
+
+テストはこれで回ります。
+
+```bash
+cd src && python -m unittest test_prereg_lock
+```
 
 ## 次の一歩
 
