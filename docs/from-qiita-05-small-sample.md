@@ -2,6 +2,12 @@
 
 Qiita の記事「『最初の30件でPF≥1なら合格』は、ほぼコイン投げだった」から来た方へ。
 
+## このページにあるもの
+
+- 判定力を測る関数: [`src/gate_power.py`](../src/gate_power.py)
+- 検定を回すエンジン: [`src/backtest_engine.py`](../src/backtest_engine.py)
+- 取引リストの例: [`examples/results_ma_cross.json`](../examples/results_ma_cross.json)
+
 ## 要点だけ再掲
 
 実運用に上げる前の線を「最初の30件で PF ≥ 1.0 なら合格」と決めていました。始める前に止める線を引くのは正しいのですが、**その判定自体の当たり具合**を測ると、こうでした。
@@ -20,12 +26,20 @@ Qiita の記事「『最初の30件でPF≥1なら合格』は、ほぼコイン
 
 を数千回ずつ回して数えるだけです。**N を決める前に、この2つを出しておく。**
 
-## このページにあるもの
+## 使い方
 
-- 検定を回すエンジン: [`src/backtest_engine.py`](../src/backtest_engine.py)
-- 取引リストの例: [`examples/results_ma_cross.json`](../examples/results_ma_cross.json)
+```python
+from gate_power import gate_power
 
-判定力を測る 20 行のスクリプトは記事の末尾にそのまま置いてあります。リポジトリへの追加は未了です。
+gate_power(trade_r, n=30, pf_min=1.0)
+# {'本物が合格': 0.659, '偽物が合格': 0.478, '連続n件で不合格': 0.337}
+```
+
+`trade_r` は1件あたりの損益を R（損切り幅の倍数）で並べたリストです。
+`numpy` だけで動きます。
+
+上の数字は「勝率35%・ペイオフ2.2倍・1件あたり +0.12R」の分布を1,200件ぶん作って通した結果です。
+**自分の取引リストで出し直してください。** 分布の形が変われば当たり具合も変わります。
 
 ## 次の一歩
 
